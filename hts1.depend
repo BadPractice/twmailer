@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1318012994 source:/home/philipp/Documents/hts/hts1/main.cpp
+	<iostream>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"user.h"
+
+1318012345 source:/home/philipp/Documents/hts/hts1/src/user.cpp
+	"user.h"
+	<string>
+
+1318553424 /home/philipp/Documents/hts/hts1/include/user.h
+	<string>
+	<fstream>
+	<iostream>
+
