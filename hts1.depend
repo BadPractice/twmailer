@@ -20,3 +20,32 @@
 	<fstream>
 	<iostream>
 
+1318732759 source:/home/philipp/Programming/twmailer/twmailer/main.cpp
+	<iostream>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"user.h"
+
+1318731982 /home/philipp/Programming/twmailer/twmailer/include/user.h
+	<string>
+	<fstream>
+	<iostream>
+	<list>
+
+1318731830 source:/home/philipp/Programming/twmailer/twmailer/src/user.cpp
+	"user.h"
+	<string>
+	<string>
+	<fstream>
+	<iostream>
+	<sstream>
+	<sys/stat.h>
+	<dirent.h>
+	<ctime>
+

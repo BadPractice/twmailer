@@ -3,26 +3,23 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sstream>
+
 #include <sys/stat.h>
+#include <dirent.h>
+#include <ctime>
 
 using namespace std;
 
 user::user(string aaa)
 {
-    string filepath;
     name=aaa;
-    filepath= name + "/mails.txt";
     mkdir(name.c_str(),0600);
-    log.open(filepath.c_str(), ios::in|ios::out|ios::ate);
-    log<<flush;
 
 }
 
 void user::del()
 {
-    log.close();
-    log.open(name.c_str(), ios::in|ios::out);
-    log<<flush;
 
 }
 
@@ -30,19 +27,19 @@ void user::send(string to, string message)
 {
     int len;
     string line="<"+to+">\n";
-    log.write(line.c_str(),line.size());
+//   log.write(line.c_str(),line.size());
     if(message.size()>80) len=80; //limits the message length to 80
     else len=message.size();
     line="<"+ message.substr(0,len) +">\n.\n";
-    log.write(line.c_str(),line.size());
+ //   log.write(line.c_str(),line.size());
 }
 
-void user::list()
+void user::do_list()
 {
     string mylist,line;
     int i=0;
-    log.seekg(0, std::ios::beg);
-    while(log.good())
+  //  log.seekg(0, std::ios::beg);
+ /*   while(log.good())
     {
         getline (log,line);
         line.append("\n");
@@ -56,34 +53,81 @@ void user::list()
   //  mylist=mylist;
 //    send(new_socket, mylist, strlen(mylist),0);
     cout<<"<"<<i<<">"<<endl<<mylist<<endl;
-
+*/
 }
 
 void user::read(int msg)
 {
     string message,line;
     int i;
-    log.seekg(0, std::ios::beg);
+ //   log.seekg(0, std::ios::beg);
     for(i=1; i<msg; i++)
     {
-        getline (log,line);
         while (line.compare("."))
         {
-            getline (log,line);
+ //           getline (log,line);
         }
     }
-    getline (log,line);
+  //  getline (log,line);
     message.append(line + "\n");
     while (line.compare("."))
         {
-            getline (log,line);
+        //    getline (log,line);
             message.append(line+"\n");
         }
 //    send(new_socket, message.c_str(), strlen(message.c_str()),0);
 
 }
+string user::getfile(string filename,int rows)
+{
+    int i;
+    string back, line;
+    ifstream handle;
+    handle.open(filename.c_str(), ios::in);
+    while (handle.good()&&(i!=rows+1))
+    {
+        getline (handle,line);
+        back=back+line;
+    }
+    return back;
+}
+
+int getfilenames(list<string> namelist, string name){
+    DIR *dp;
+    int i=0;
+    struct dirent *dirp;
+    dp = opendir(name.c_str());
+    if(dp == NULL) {
+        cout << "did not get filenames" << endl;
+        return -1;
+    }
+    while ((dirp = readdir(dp)) != NULL)
+    {
+        i++;
+        namelist.push_back(string(dirp->d_name));
+    }
+    closedir(dp);
+    return i;
+}
+
+int user::writefile(string message)
+{
+    ofstream handle;
+    time_t now;
+    stringstream strm;
+    string convert;
+    time(&now);
+    strm << now;
+    convert=strm.str();
+    convert=name +"/"+ convert;
+    cout << convert<< endl;
+    handle.open(convert.c_str(),ios::out);
+    handle<<message;
+    handle.close();
+    return 0;
+}
 
 user::~user()
 {
-    log.close();//dtor
+
 }

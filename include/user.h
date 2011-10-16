@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <list>
 using namespace std;
 
 class user
@@ -10,14 +11,16 @@ class user
     public:
         user(string aaa);
         void send(string to, string message);
-        void list();
+        void do_list();
         void del();
         void read(int msg);
+        int writefile(string);
          ~user();
     protected:
     private:
-    string name;
-    fstream log;
-};
+        string name;
+        int getfilenames(list<string>, string, string );
+        string getfile(string filename, int anz);
+    };
 
 #endif // USER_H

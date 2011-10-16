@@ -36,7 +36,14 @@ int do_send(char* aaa)
 }
 int main()
 {
-    int create_socket, new_socket;
+    string message ="maaaaaaaaaaaaaaaarkus";
+    user* markus = new user("markus");
+    markus->writefile(message);
+}
+
+
+
+    /*int create_socket, new_socket;
     socklen_t addrlen;
     char buffer[BUF];
     int size;
@@ -104,4 +111,4 @@ int main()
     return EXIT_SUCCESS;
     return 0;
 }
-
+*/
