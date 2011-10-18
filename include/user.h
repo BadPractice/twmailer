@@ -13,13 +13,13 @@ class user
         void send(string to, string message);
         void do_list();
         void del();
-        void read(int msg);
+        void do_read(int msg);
         int writefile(string);
          ~user();
     protected:
     private:
         string name;
-        int getfilenames(list<string>, string, string );
+        int getfilenames(list<string *> *);
         string getfile(string filename, int anz);
     };
 

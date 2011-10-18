@@ -14,7 +14,7 @@ using namespace std;
 user::user(string aaa)
 {
     name=aaa;
-    mkdir(name.c_str(),0600);
+    mkdir(name.c_str(),0700);
 
 }
 
@@ -36,8 +36,15 @@ void user::send(string to, string message)
 
 void user::do_list()
 {
-    string mylist,line;
-    int i=0;
+    list<string *> filenames;
+    string * handle;
+    this->getfilenames(&filenames);
+    while(!filenames.empty()){
+        handle =filenames.back();
+        cout <<"file gefunden: "<< *handle<<endl;
+        delete handle;
+        filenames.pop_back();
+    }
   //  log.seekg(0, std::ios::beg);
  /*   while(log.good())
     {
@@ -56,7 +63,7 @@ void user::do_list()
 */
 }
 
-void user::read(int msg)
+void user::do_read(int msg)
 {
     string message,line;
     int i;
@@ -92,9 +99,10 @@ string user::getfile(string filename,int rows)
     return back;
 }
 
-int getfilenames(list<string> namelist, string name){
+int user::getfilenames(list <string *> *namelist){
     DIR *dp;
     int i=0;
+    string *dir;
     struct dirent *dirp;
     dp = opendir(name.c_str());
     if(dp == NULL) {
@@ -104,7 +112,8 @@ int getfilenames(list<string> namelist, string name){
     while ((dirp = readdir(dp)) != NULL)
     {
         i++;
-        namelist.push_back(string(dirp->d_name));
+        (*namelist).push_back(new string(dirp->d_name));
+        cout<< (*namelist).back()<<endl;
     }
     closedir(dp);
     return i;

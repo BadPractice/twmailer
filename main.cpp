@@ -28,6 +28,7 @@ int do_send(char* aaa)
     cout<<"sender: "<<sender<<endl<<"reciver: "<<rcver<<endl<<"subject: "<<subj<<endl<<"message: "<<buffer;
     user* markus=new user(rcver);
     markus->send(subj,buffer);
+    markus->do_list();
     delete markus;
         pos=buffer.find("\n",0);
     rcver=buffer.substr(0,pos);
