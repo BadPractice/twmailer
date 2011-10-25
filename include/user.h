@@ -22,7 +22,7 @@ class user
         string name;
         int getfilenames(list<string *> *);
         string getfile(string filename, int anz);
-        bool sortnumb (string *first, string *second);
+        bool sortnumb (string first, string second);
     };
 
 #endif // USER_H

@@ -17,8 +17,8 @@ user::user(string aaa)
 
 }
 
-bool user::sortnumb (string *first, string *second){
-    if (atoi((*first).c_str())<atoi((*second).c_str()))return true;
+bool user::sortnumb (string first, string second){
+    if (atoi(first.c_str())<atoi(second.c_str())) return true;
     return false;
 }
 
@@ -40,10 +40,10 @@ void user::send(string to, string message)
 
 void user::do_list()
 {
-    list<string *> filenames;
+    list<string> filenames;
     string * handle;
     this->getfilenames(&filenames);
-    filenames.sort();
+    filenames.sort(user::sortnumb);
     while(!filenames.empty()){
         handle =filenames.back();
         cout <<"file gefunden: "<< *handle<<endl;
@@ -104,10 +104,11 @@ string user::getfile(string filename,int rows)
     return back;
 }
 
-int user::getfilenames(list <string *> *namelist){
+int user::getfilenames(list <string> *namelist){
     DIR *dp;
     int i=0;
     struct dirent *dirp;
+
     dp = opendir(name.c_str());
     if(dp == NULL) {
         cout << "did not get filenames" << endl;
@@ -116,11 +117,10 @@ int user::getfilenames(list <string *> *namelist){
     while ((dirp = readdir(dp)) != NULL)
     {
         i++;
-        (*namelist).push_back(new string(dirp->d_name));
-        if((*(*namelist).back()) == "."
-           || (*(*namelist).back())==".."){
-            delete (*namelist).back();
-            (*namelist).pop_back();
+        (*namelist).push_back(string(dirp->d_name));
+        if(namelist.back()) == "."
+           || namelist.back())==".."){
+            namelist.pop_back();
         }
     }
     closedir(dp);
