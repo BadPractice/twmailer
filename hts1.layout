@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
+	<File name="include/connection.h" open="1" top="0" tabpos="4">
+		<Cursor position="172" topLine="0" />
+	</File>
 	<File name="include/user.h" open="1" top="0" tabpos="1">
-		<Cursor position="409" topLine="2" />
+		<Cursor position="373" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="2545" topLine="34" />
+	<File name="main.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/user.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="2004" topLine="91" />
+	<File name="src/connection.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1626" topLine="32" />
+	</File>
+	<File name="src/user.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="2004" topLine="61" />
 	</File>
 </CodeBlocks_layout_file>

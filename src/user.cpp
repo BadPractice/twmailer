@@ -1,10 +1,9 @@
 #include "user.h"
 #include <string>
-#include <string>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-
+#include <cctype>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <ctime>
@@ -16,6 +15,11 @@ user::user(string aaa)
     name=aaa;
     mkdir(name.c_str(),0700);
 
+}
+
+bool user::sortnumb (string *first, string *second){
+    if (atoi((*first).c_str())<atoi((*second).c_str()))return true;
+    return false;
 }
 
 void user::del()
@@ -39,6 +43,7 @@ void user::do_list()
     list<string *> filenames;
     string * handle;
     this->getfilenames(&filenames);
+    filenames.sort();
     while(!filenames.empty()){
         handle =filenames.back();
         cout <<"file gefunden: "<< *handle<<endl;
@@ -102,7 +107,6 @@ string user::getfile(string filename,int rows)
 int user::getfilenames(list <string *> *namelist){
     DIR *dp;
     int i=0;
-    string *dir;
     struct dirent *dirp;
     dp = opendir(name.c_str());
     if(dp == NULL) {
@@ -113,7 +117,11 @@ int user::getfilenames(list <string *> *namelist){
     {
         i++;
         (*namelist).push_back(new string(dirp->d_name));
-        cout<< (*namelist).back()<<endl;
+        if((*(*namelist).back()) == "."
+           || (*(*namelist).back())==".."){
+            delete (*namelist).back();
+            (*namelist).pop_back();
+        }
     }
     closedir(dp);
     return i;

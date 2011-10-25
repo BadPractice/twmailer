@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <list>
+#include <stdlib.h>
 using namespace std;
 
 class user
@@ -21,6 +22,7 @@ class user
         string name;
         int getfilenames(list<string *> *);
         string getfile(string filename, int anz);
+        bool sortnumb (string *first, string *second);
     };
 
 #endif // USER_H

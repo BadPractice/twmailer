@@ -49,21 +49,43 @@
 	<dirent.h>
 	<ctime>
 
-1318950097 source:/home/philipp/Programming/twmailer/main.cpp
+1319537370 source:/home/philipp/Programming/twmailer/main.cpp
 	<iostream>
 	<sys/types.h>
-	<sys/socket.h>
-	<netinet/in.h>
-	<arpa/inet.h>
 	<unistd.h>
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"user.h"
+	"connection.h"
 
-1318951871 /home/philipp/Programming/twmailer/include/user.h
+1319038084 /home/philipp/Programming/twmailer/include/user.h
 	<string>
 	<fstream>
 	<iostream>
 	<list>
+	<stdlib.h>
+
+1319038285 source:/home/philipp/Programming/twmailer/src/user.cpp
+	"user.h"
+	<string>
+	<fstream>
+	<iostream>
+	<sstream>
+	<cctype>
+	<sys/stat.h>
+	<dirent.h>
+	<ctime>
+
+1319389588 source:/home/philipp/Programming/twmailer/src/connection.cpp
+	"connection.h"
+	<string.h>
+
+1319123343 /home/philipp/Programming/twmailer/include/connection.h
+	<string>
+	<iostream>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<stdlib.h>
 
