@@ -14,7 +14,10 @@ class connection
 {
     public:
         connection();
-        string connect();
+        int connect();
+        int recive();
+        void say_ok();
+        void say_err();
         ~connection();
     protected:
     private:

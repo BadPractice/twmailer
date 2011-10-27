@@ -7,6 +7,7 @@
 
 #include "user.h"
 #include "connection.h"
+#include "message.h"
 using namespace std;
 int do_send(char* aaa)
 {
@@ -31,6 +32,12 @@ int do_send(char* aaa)
 int main()
 {
     string message;
+    list <string> test;
+    user myuser= user("markus");
+    test = myuser.do_list();
+    message = test.back();
+    cout <<message<<endl;
+    myuser.do_read(3);
     connection markus = connection();
     message = markus.connect();
     cout<<message<<endl;

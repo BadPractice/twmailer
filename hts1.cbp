@@ -26,9 +26,11 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/connection.h" />
+		<Unit filename="include/message.h" />
 		<Unit filename="include/user.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/connection.cpp" />
+		<Unit filename="src/message.cpp" />
 		<Unit filename="src/user.cpp" />
 		<Extensions>
 			<code_completion />

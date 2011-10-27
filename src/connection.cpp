@@ -15,50 +15,57 @@ connection::connection()
     if (bind ( create_socket, (struct sockaddr *) &address, sizeof (address)) != 0)
     {
         cout<<"bind error"<<endl;
-      //  return EXIT_FAILURE;
+        //  return EXIT_FAILURE;
     }
     listen (create_socket, 5);
 
     addrlen = sizeof (struct sockaddr_in);
 }
 
-string connection::connect()
+int connection::connect()
 {
     new_socket = accept ( create_socket, (struct sockaddr *) &cliaddress, &addrlen );
     if (new_socket > 0)
-        {
-         //   cout<<"client connected.....  " << inet_ntoa (cliaddress.sin_addr),ntohs(cliaddress.sin_port)<<endl;
-         buffer = "Welcome to my server! I hat you so much";
-           // strcpy(buffer,"Welcome to my Server! I hate you so much!\n");
-            send(new_socket, buffer.c_str(), buffer.size(),0);
-        }
-           do
-        {
-            size = recv (new_socket,
-                          (void *) buffer.c_str(),
-                          buffer.size()
-                         ,NULL);
-            if( size > 0)
-            {
-                buffer[size] = '\0';
-                return buffer;
-
-            }
-            else if (size == 0)
-            {
-//                printf("Client closed remote socket\n");
-                break;
-            }
-            else
-            {
-//                perror("recv error");
-              //  return EXIT_FAILURE;
-            }
-        }while(buffer.find("quit",4));
-    //    while (strncmp (buffer, "quit", 4)  != 0);
-    //    close (new_socket);
-        return buffer;
+    {
+        buffer = "Welcome to my server! I hat you so much";
+        send(new_socket, buffer.c_str(), buffer.size(),0);
+        cout<<"client connected.....  " << inet_ntoa (cliaddress.sin_addr)<<ntohs(cliaddress.sin_port)<<endl;
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
+
+int connection::recive()
+{
+    size = recv (new_socket, (void *) buffer.c_str(), buffer.size(),NULL);
+    if( size > 0)
+    {
+        buffer[size] = '\0';
+        return EXIT_SUCCESS;
+    }
+    else if (size == 0)
+    {
+        cout<<"Client closed remote socket"<<endl;
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        cout<<"recv error"<<endl;
+        return EXIT_FAILURE;
+    }
+}
+void connection::say_ok()
+{
+    char ans[4] = "OK\n";
+        send(new_socket, ans, sizeof(ans),0);
+}
+
+void connection::say_err()
+{
+    char ans[5] = "ERR\n";
+        send(new_socket, ans, sizeof(ans),0);
+}
+
 connection::~connection()
 {
     close (create_socket);

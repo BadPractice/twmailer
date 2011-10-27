@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="include/connection.h" open="1" top="0" tabpos="4">
-		<Cursor position="172" topLine="0" />
+	<File name="include/connection.h" open="1" top="0" tabpos="3">
+		<Cursor position="207" topLine="0" />
 	</File>
-	<File name="include/user.h" open="1" top="0" tabpos="1">
-		<Cursor position="373" topLine="0" />
+	<File name="include/message.h" open="1" top="0" tabpos="4">
+		<Cursor position="219" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="0" topLine="0" />
+	<File name="include/user.h" open="0" top="0" tabpos="5">
+		<Cursor position="43" topLine="0" />
 	</File>
-	<File name="src/connection.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="1626" topLine="32" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="185" topLine="0" />
 	</File>
-	<File name="src/user.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2004" topLine="61" />
+	<File name="src/connection.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1163" topLine="23" />
+	</File>
+	<File name="src/message.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="45" topLine="0" />
+	</File>
+	<File name="src/user.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="1056" topLine="42" />
 	</File>
 </CodeBlocks_layout_file>

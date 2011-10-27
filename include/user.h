@@ -12,15 +12,15 @@ class user
     public:
         user(string aaa);
         void send(string to, string message);
-        void do_list();
+        list <string> do_list();
         void del();
-        void do_read(int msg);
+        string do_read(int msg);
         int writefile(string);
          ~user();
     protected:
     private:
         string name;
-        int getfilenames(list<string *> *);
+        int getfilenames(list<string > *);
         string getfile(string filename, int anz);
         bool sortnumb (string first, string second);
     };

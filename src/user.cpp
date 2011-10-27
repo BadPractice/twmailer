@@ -38,37 +38,20 @@ void user::send(string to, string message)
  //   log.write(line.c_str(),line.size());
 }
 
-void user::do_list()
+list <string> user::do_list()
 {
     list<string> filenames;
-    string * handle;
+     list<string>::iterator it;
+    string handle;
     this->getfilenames(&filenames);
-    filenames.sort(user::sortnumb);
-    while(!filenames.empty()){
-        handle =filenames.back();
-        cout <<"file gefunden: "<< *handle<<endl;
-        delete handle;
-        filenames.pop_back();
+    filenames.sort();//user::sortnumb);
+    for( it=filenames.begin() ; it != filenames.end(); it++ ){
+        *it=this->getfile(*it,1);
     }
-  //  log.seekg(0, std::ios::beg);
- /*   while(log.good())
-    {
-        getline (log,line);
-        line.append("\n");
-        mylist.append(line);
-        i++;
-        while (log.good()&&line.compare("."))
-        {
-            getline (log,line);
-        }
-    }
-  //  mylist=mylist;
-//    send(new_socket, mylist, strlen(mylist),0);
-    cout<<"<"<<i<<">"<<endl<<mylist<<endl;
-*/
+    return filenames;
 }
 
-void user::do_read(int msg)
+string user::do_read(int msg)
 {
     string message,line;
     int i;
@@ -88,12 +71,13 @@ void user::do_read(int msg)
             message.append(line+"\n");
         }
 //    send(new_socket, message.c_str(), strlen(message.c_str()),0);
-
+ return message;
 }
 string user::getfile(string filename,int rows)
 {
-    int i;
+    int i=0;
     string back, line;
+    filename = name + "/"+ filename;
     ifstream handle;
     handle.open(filename.c_str(), ios::in);
     while (handle.good()&&(i!=rows+1))
@@ -118,9 +102,9 @@ int user::getfilenames(list <string> *namelist){
     {
         i++;
         (*namelist).push_back(string(dirp->d_name));
-        if(namelist.back()) == "."
-           || namelist.back())==".."){
-            namelist.pop_back();
+        if( (*namelist).back() == "." ||  (*namelist).back()=="..")
+        {
+             (*namelist).pop_back();
         }
     }
     closedir(dp);
