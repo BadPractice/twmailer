@@ -16,8 +16,10 @@ class connection
         connection();
         int connect();
         int recive();
+        string get_msg();
         void say_ok();
         void say_err();
+        void say_message(string* msg);
         ~connection();
     protected:
     private:

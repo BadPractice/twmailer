@@ -4,46 +4,57 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <pthread.h>
 #include "user.h"
 #include "connection.h"
+#include <list>
 #include "message.h"
-using namespace std;
-int do_send(char* aaa)
+#include "login.h"
+
+void * do_client(void *xxx)
 {
-    int pos;
-    string buffer=aaa,sender,rcver,subj;
- //   cout<<buffer<<endl;
-    pos=buffer.find("\n",0);
-    sender=buffer.substr(0,pos);
-    buffer=buffer.substr(pos+1);
-    pos=buffer.find("\n",0);
-    rcver=buffer.substr(0,pos);
-    buffer=buffer.substr(pos+1);
-        pos=buffer.find("\n",0);
-    subj=buffer.substr(0,pos);
-    buffer=buffer.substr(pos+1);
-    cout<<"sender: "<<sender<<endl<<"reciver: "<<rcver<<endl<<"subject: "<<subj<<endl<<"message: "<<buffer;
-        pos=buffer.find("\n",0);
-    rcver=buffer.substr(0,pos);
-    buffer=buffer.substr(pos+1);
-    return EXIT_SUCCESS;
+    while(1)
+    {
+        connection *mycon = (connection*)xxx;
+        message mymsg = message();
+        if(!(*mycon).recive())
+        {
+            return NULL;
+        }
+        login mylog= login((*mycon).get_msg());
+        if(!mylog.proof())
+        {
+           (*mycon).say_err();
+            return NULL;
+        }
+        (*mycon).say_ok();
+        user myusr = user(mylog.get_name());
+        if(!(*mycon).recive())
+        {
+            return NULL;
+        }
+        mymsg.open((*mycon).get_msg());
+        }
+
+    return 0;
 }
+using namespace std;
 int main()
 {
-    string message;
-    list <string> test;
-    user myuser= user("markus");
-    test = myuser.do_list();
-    message = test.back();
-    cout <<message<<endl;
-    myuser.do_read(3);
-    connection markus = connection();
-    message = markus.connect();
-    cout<<message<<endl;
-    while (1)
-    {
+    list <pthread_t *> threads;
+    connection *mycon;
 
+    while(1)
+    {
+        mycon = new connection();
+        if((*mycon).connect())
+        {
+            threads.push_back(new pthread_t);
+            pthread_create( threads.back(), NULL, do_client, (void*) mycon);
+        }
+
+        // pthread_create( threads.back(), NULL, do_client, (void*) mycon);
+        delete mycon;
     }
     return EXIT_SUCCESS;
     return 0;

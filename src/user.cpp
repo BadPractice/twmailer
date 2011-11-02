@@ -29,13 +29,20 @@ void user::del()
 
 void user::send(string to, string message)
 {
-    int len;
-    string line="<"+to+">\n";
-//   log.write(line.c_str(),line.size());
-    if(message.size()>80) len=80; //limits the message length to 80
-    else len=message.size();
-    line="<"+ message.substr(0,len) +">\n.\n";
- //   log.write(line.c_str(),line.size());
+    message=name + "\n" + message;
+    mkdir(to.c_str(),0700);
+    ofstream handle;
+    time_t now;
+    stringstream strm;
+    string convert;
+    time(&now);
+    strm << now;
+    convert=strm.str();
+    convert=to +"/"+ convert;
+    cout << convert<< endl;
+    handle.open(convert.c_str(),ios::out);
+    handle<<message;
+    handle.close();
 }
 
 list <string> user::do_list()
