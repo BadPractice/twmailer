@@ -12,8 +12,8 @@ class user
     public:
         user(string aaa);
         void send(string to, string message);
-        list <string> do_list();
-        void del();
+        string do_list();
+        void do_del(int);
         string do_read(int msg);
         int writefile(string);
          ~user();

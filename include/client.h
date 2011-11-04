@@ -1,5 +1,5 @@
-#ifndef CONNECTION_H
-#define CONNECTION_H
+#ifndef CLIENT_H
+#define CLIENT_H
 #include <string>
 #include <iostream>
 #include <sys/socket.h>
@@ -8,27 +8,25 @@
 #include <stdlib.h>
 #define BUF 1024
 #define PORT 6543
+
 using namespace std;
 
-class connection
+class client
 {
     public:
-        connection();
-        int connect();
+        client(int);
         int recive();
         string get_msg();
         void say_ok();
         void say_err();
         void say_message(string);
         int get_sock();
-        ~connection();
+        virtual ~client();
     protected:
     private:
-        int create_socket, new_socket;
-        socklen_t addrlen;
-        string buffer;
-        int size;
-        struct sockaddr_in address, cliaddress;
+    int size;
+    int new_socket;
+    string buffer;
 };
 
-#endif // CONNECTION_H
+#endif // CLIENT_H

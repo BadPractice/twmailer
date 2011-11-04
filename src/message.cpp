@@ -19,16 +19,16 @@ char message::open(string msg)
         if(help.length() !=4) return type='e';
         pos=msg.find("\n",0);
         reciver=msg.substr(0,pos);
-        cout<<"reciver: "<<reciver<<endl;//debug message!
+      //  cout<<"reciver: "<<reciver<<endl;//debug message!
         msg=msg.substr(pos+1);
         if(reciver.length() > MAX_LENGTH_ADRESS) return type='e';
         pos=msg.find("\n",0);
         betreff=msg.substr(0,pos);
-        cout<<"betreff: "<<betreff<<endl;
+     //   cout<<"betreff: "<<betreff<<endl;
         msg=msg.substr(pos+1);
         if(reciver.length() > MAX_LENGHT_BETREFF) return type='e';
         text=msg;
-        cout<<"message: "<<text<<endl;
+       // cout<<"message: "<<text<<endl;
         return type= 's';
     }
     if(help.compare("delete")==0)
@@ -61,7 +61,7 @@ string message::get_reciver()
 string message::get_betreff()
 {
     if(type!= 's')return "";
-    return reciver;
+    return betreff;
 }
 
 int message::get_msg_nmb()
@@ -75,7 +75,10 @@ string message::get_message()
     if(type!= 's')return "error";
     return text;
 }
-
+char message::get_type()
+{
+    return type;
+}
 message::~message()
 {
     //dtor

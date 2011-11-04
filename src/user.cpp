@@ -22,13 +22,14 @@ bool user::sortnumb (string first, string second){
     return false;
 }
 
-void user::del()
+void user::do_del(int nmb)
 {
 
 }
 
 void user::send(string to, string message)
 {
+    cout<<message<<endl;
     message=name + "\n" + message;
     mkdir(to.c_str(),0700);
     ofstream handle;
@@ -45,40 +46,37 @@ void user::send(string to, string message)
     handle.close();
 }
 
-list <string> user::do_list()
+string user::do_list()
 {
+    cout<<"doing list"<<endl;
+    string buffer;
     list<string> filenames;
      list<string>::iterator it;
-    string handle;
+  //  buffer.clear();
     this->getfilenames(&filenames);
     filenames.sort();//user::sortnumb);
     for( it=filenames.begin() ; it != filenames.end(); it++ ){
-        *it=this->getfile(*it,1);
+        buffer.append( *it=this->getfile(*it,1));
+        buffer.append("\n");
     }
-    return filenames;
+     cout<<buffer<<endl;
+    return buffer;
 }
 
 string user::do_read(int msg)
 {
-    string message,line;
     int i;
- //   log.seekg(0, std::ios::beg);
-    for(i=1; i<msg; i++)
-    {
-        while (line.compare("."))
-        {
- //           getline (log,line);
-        }
-    }
-  //  getline (log,line);
-    message.append(line + "\n");
-    while (line.compare("."))
-        {
-        //    getline (log,line);
-            message.append(line+"\n");
-        }
-//    send(new_socket, message.c_str(), strlen(message.c_str()),0);
- return message;
+    cout <<"aaa"<<endl;
+list<string> filenames;
+     list<string>::iterator it;
+  //  buffer.clear();
+    this->getfilenames(&filenames);
+    filenames.sort();//user::sortnumb);
+    it=filenames.begin();
+    for(i=1;i<msg;i++)it++;
+    return getfile(*it,0);
+
+
 }
 string user::getfile(string filename,int rows)
 {
@@ -87,10 +85,11 @@ string user::getfile(string filename,int rows)
     filename = name + "/"+ filename;
     ifstream handle;
     handle.open(filename.c_str(), ios::in);
-    while (handle.good()&&(i!=rows+1))
+    while (handle.good()&&(i!=rows))
     {
         getline (handle,line);
         back=back+line;
+        back=back+"\n";
     }
     return back;
 }

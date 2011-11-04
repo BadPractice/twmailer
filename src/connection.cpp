@@ -15,11 +15,16 @@ connection::connection()
     if (bind ( create_socket, (struct sockaddr *) &address, sizeof (address)) != 0)
     {
         cerr<<"bind error"<<endl;
-        //  return EXIT_FAILURE;
+          return;
     }
     listen (create_socket, 5);
 
     addrlen = sizeof (struct sockaddr_in);
+}
+
+int connection::get_sock()
+{
+    return new_socket;
 }
 
 string connection::get_msg()
@@ -32,9 +37,9 @@ int connection::connect()
     new_socket = accept ( create_socket, (struct sockaddr *) &cliaddress, &addrlen );
     if (new_socket > 0)
     {
-        buffer = "Welcome to my server! I hat you so much!\n";
+        buffer = "Welcome to my server! I hate you so much!\n";
         send(new_socket, buffer.c_str(), buffer.size(),0);
-        cout<<"client connected.....  " << inet_ntoa (cliaddress.sin_addr)<<ntohs(cliaddress.sin_port)<<endl;
+        cout<<"client connected.....  " << inet_ntoa (cliaddress.sin_addr)<<":"<<ntohs(cliaddress.sin_port)<<endl;
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;
@@ -42,10 +47,13 @@ int connection::connect()
 
 int connection::recive()
 {
-    size = recv (new_socket, (void *) buffer.c_str(), buffer.size(),NULL);
+    char buf[BUF];
+    size = recv (new_socket, (void *) &buf, BUF,NULL);
     if( size > 0)
     {
-        buffer[size] = '\0';
+        buf[size] = '\0';
+        buffer.assign(buf);
+        cout<<buffer.size()<<endl;
         return EXIT_SUCCESS;
     }
     else if (size == 0)
@@ -71,9 +79,9 @@ void connection::say_err()
         send(new_socket, ans, sizeof(ans),0);
 }
 
-void connection::say_message(string *ans)
+void connection::say_message(string ans)
 {
-     send(new_socket, (*ans).c_str(), ans->size(),0);
+     send(new_socket, ans.c_str(), ans.size(),0);
 }
 
 connection::~connection()
